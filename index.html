@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="cursoAngular">
+  <head>
+    <meta charset="utf-8">
+    <title>Curso AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script>
+      var app = angular.module("cursoAngular", []);
+
+      app.controller("cursoAngularController", function($scope){
+        $scope.mensagem = "Olá Mundo !";
+        $scope.pessoas = [];
+
+        $scope.adicionaUm = function(){
+          var pessoaTemp = angular.copy($scope.pessoa);
+          $scope.pessoas.push(pessoaTemp);
+        };
+      });
+    </script>
+  </head>
+  <body ng-controller="cursoAngularController">
+    <input type="text" value="" ng-model="pessoa.nome">
+    <button ng-click="adicionaUm()">Adiciona na lista</button>
+    <div ng-repeat="pessoa in pessoas">
+      <h3>{{pessoa.nome}}</h3>
+    </div>
+  </body>
+</html>
