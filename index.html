@@ -3,9 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Curso AngularJS</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script>
-      var app = angular.module("cursoAngular", []);
+      var app = angular.module("cursoAngular", ['ngMaterial']);
 
       app.controller("cursoAngularController", function($scope){
         $scope.mensagem = "Olá Mundo !";
@@ -14,27 +22,67 @@
         $scope.adicionaUm = function(){
           var contatoTemp = angular.copy($scope.contato);
           $scope.contatos.push(contatoTemp);
+          $scope.contato = {};
         };
       });
     </script>
+
+    <style>
+      .vermelho {
+        background: red;
+      }
+    </style>
   </head>
 
-
   <body ng-controller="cursoAngularController">
-    <input type="text" value="" ng-model="contato.nome">
-    <input type="text" value="" ng-model="contato.telefone">
-    <button ng-click="adicionaUm()">Adiciona na lista</button>
+    <div class="geral">
+      <div class="">
+        <md-input-container>
+          <label>Nome</label>
+          <input ng-model="contato.nome">
+        </md-input-container>
 
-    <table>
-      <tr>
-        <th>Nome</th>
-        <th>Telefone</th>
-      </tr>
+        <md-input-container>
+          <label>Telefone</label>
+          <input ng-model="contato.telefone">
+        </md-input-container>
 
-      <tr ng-repeat="contato in contatos">
-        <td>{{contato.nome}}</td>
-        <td>{{contato.telefone}}</td>
-      </tr>
-    </table>
+        <md-input-container>
+          <label>Pequise Alguém</label>
+          <input ng-model="filtroPesquisa">
+        </md-input-container>
+
+        <md-button class="md-raised md-primary" ng-click="adicionaUm()">Adiciona na lista</md-button>
+      </div>
+
+      <table>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+        </tr>
+
+        <tr ng-repeat="contato in contatos | filter: filtroPesquisa" ng-class="{vermelho: passou}" ng-mouseenter="passou = true" ng-mouseleave="passou = false">
+          <td>{{contato.nome}}</td>
+          <td>{{contato.telefone}}</td>
+        </tr>
+      </table>
+
+
+      <!--
+      <md-list>
+        <md-list-item class="md-2-line" ng-repeat="contato in contatos | filter: filtroPesquisa">
+          <md-icon md-svg-icon="{{phone.options.icon}}" ng-if="phone.options.icon" ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+          <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}" ng-if="phone.options.face">
+          <div class="md-list-item-text" ng-class="{'md-offset': phone.options.offset }">
+            <h3> {{ phone.number }} </h3>
+            <p> {{ phone.type }} </p>
+          </div>
+          <md-button class="md-secondary md-icon-button" ng-click="doSecondaryAction($event)" ng-if="phone.options.actionIcon" aria-label="call">
+            <md-icon md-svg-icon="{{phone.options.actionIcon}}"></md-icon>
+          </md-button>
+        </md-list-item>
+      </md-list> -->
+
+    </div>
   </body>
 </html>
