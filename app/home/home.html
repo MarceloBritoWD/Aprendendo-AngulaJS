@@ -1,0 +1,44 @@
+<div class="">
+
+  <h1>Sou a página principal</h1>
+
+
+  {{mensagem}}
+  <a ui-sref="agenda">Agenda</a>
+
+  <div class="geral">
+    <div class="">
+      <md-input-container>
+        <label>Nome</label>
+        <input ng-model="contato.nome">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Telefone</label>
+        <input ng-model="contato.telefone">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Pequise Alguém</label>
+        <input ng-model="filtroPesquisa">
+      </md-input-container>
+
+      <md-button class="md-raised md-primary" ng-click="adicionaUm()">Adiciona na lista</md-button>
+      <md-button class="md-raised md-primary" ng-click="vaiParaAgenda()">Ir para Agenda</md-button>
+    </div>
+
+    <table>
+      <tr>
+        <th>Nome</th>
+        <th>Telefone</th>
+      </tr>
+
+      <tr ng-repeat="contato in contatos | filter: filtroPesquisa" ng-class="{vermelho: passou}" ng-mouseenter="passou = true" ng-mouseleave="passou = false">
+        <td>{{contato.nome}}</td>
+        <td>{{contato.telefone}}</td>
+      </tr>
+    </table>
+
+  </div>
+
+</div>
